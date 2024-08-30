@@ -54,10 +54,13 @@ public partial class PasswordValidator<T> : PropertyValidator<T, string>
 
     [GeneratedRegex("[A-Z]+")]
     private static partial Regex UpperCaseLetter();
+   
     [GeneratedRegex("[a-z]+")]
     private static partial Regex LowerCaseLetter();
+   
     [GeneratedRegex("[0-9]+")]
     private static partial Regex Numbers();
+    
     [GeneratedRegex("[\\!\\?\\*\\.\\@]+")]
     private static partial Regex SpecialSimbols();
 }

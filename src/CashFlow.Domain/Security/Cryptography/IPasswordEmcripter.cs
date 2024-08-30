@@ -2,4 +2,5 @@
 public interface IPasswordEmcripter
 {
     string Encrypt(string password);
+    bool Verify(string password, string passwordHash);
 }
