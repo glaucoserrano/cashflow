@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Login\DoLogin\**" />
+    <EmbeddedResource Remove="Login\DoLogin\**" />
+    <None Remove="Login\DoLogin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="UnitTest1.cs" />
   </ItemGroup>
 
