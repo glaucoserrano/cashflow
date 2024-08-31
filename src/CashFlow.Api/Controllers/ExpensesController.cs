@@ -5,18 +5,23 @@ using CashFlow.Application.UseCases.Expenses.Register;
 using CashFlow.Application.UseCases.Expenses.Update;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlow.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class ExpensesController : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(typeof(ResponsesRegisterExpenseJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Register([FromServices] IRegisterExpensesUseCase useCase,[FromBody] RequestExpenseJson request)
+    public async Task<IActionResult> Register(
+        [FromServices] IRegisterExpensesUseCase useCase,
+        [FromBody] RequestExpenseJson request
+        )
     {
         
         var response = await useCase.Execute(request);
@@ -28,7 +33,9 @@ public class ExpensesController : ControllerBase
     [HttpGet]
     [ProducesResponseType(typeof(ResponseExpensesJson),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> GettAllExpenses([FromServices] IGetAllExpensesUseCase useCase)
+    public async Task<IActionResult> GettAllExpenses(
+        [FromServices] IGetAllExpensesUseCase useCase
+        )
     {
         var response = await useCase.Execute();
         if (response.Expenses.Count != 0)
@@ -40,7 +47,10 @@ public class ExpensesController : ControllerBase
     [Route("{id}")]
     [ProducesResponseType(typeof(ResponseExpenseJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetById([FromServices] IGetExpenseByIdUseCase useCase, [FromRoute] long id)
+    public async Task<IActionResult> GetById(
+        [FromServices] IGetExpenseByIdUseCase useCase, 
+        [FromRoute] long id
+        )
     {
         var response = await useCase.Execute(id);
 
@@ -50,7 +60,10 @@ public class ExpensesController : ControllerBase
     [Route("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Delete([FromServices] IDeleteExpenseUseCase useCase, [FromRoute] long id)
+    public async Task<IActionResult> Delete(
+        [FromServices] IDeleteExpenseUseCase useCase, 
+        [FromRoute] long id
+        )
     {
         await useCase.Execute(id);
 
@@ -64,7 +77,8 @@ public class ExpensesController : ControllerBase
     public async Task<IActionResult> Update(
         [FromServices] IUpdateExpenseUseCase useCase, 
         [FromRoute] long id, 
-        [FromBody] RequestExpenseJson request)
+        [FromBody] RequestExpenseJson request
+        )
     {
         await useCase.Execute(id, request);
 

@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlow.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validators.Tests", "tests\Validators.Tests\Validators.Tests.csproj", "{AC1B6B85-B5BD-4ECA-9DF2-232BB5A28407}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoommonTestsUtilities", "CoommonTestsUtilities\CoommonTestsUtilities.csproj", "{F6718BD7-0A89-4D2B-A826-6B23F6F1C149}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoommonTestsUtilities", "CoommonTestsUtilities\CoommonTestsUtilities.csproj", "{F6718BD7-0A89-4D2B-A826-6B23F6F1C149}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases.Test", "tests\UseCases.Test\UseCases.Test.csproj", "{AF22C2BB-C027-4142-ADE1-20234CDB6B62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{F6718BD7-0A89-4D2B-A826-6B23F6F1C149}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6718BD7-0A89-4D2B-A826-6B23F6F1C149}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6718BD7-0A89-4D2B-A826-6B23F6F1C149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF22C2BB-C027-4142-ADE1-20234CDB6B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF22C2BB-C027-4142-ADE1-20234CDB6B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF22C2BB-C027-4142-ADE1-20234CDB6B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF22C2BB-C027-4142-ADE1-20234CDB6B62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{1FD7F0CA-9134-4FAC-80DB-960D8BE42154} = {BB7DFA96-06A4-434F-88A3-C89CEA184581}
 		{AC1B6B85-B5BD-4ECA-9DF2-232BB5A28407} = {E33E4F0E-4141-4CA8-975D-4984C3F02D1F}
 		{F6718BD7-0A89-4D2B-A826-6B23F6F1C149} = {E33E4F0E-4141-4CA8-975D-4984C3F02D1F}
+		{AF22C2BB-C027-4142-ADE1-20234CDB6B62} = {E33E4F0E-4141-4CA8-975D-4984C3F02D1F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4A6C7DE6-0F17-40AC-8899-907BC394090C}
