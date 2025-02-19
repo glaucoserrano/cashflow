@@ -20,9 +20,13 @@ public class RegisterUserUseCaseTest
 
         var result = await useCase.Execute(request);
 
+        //Assert.NotNull(result);
+        //Assert.Equivalent(request.Name, result.Name);
+        
         result.Should().NotBeNull();
         result.Name.Should().Be(request.Name);
         result.Token.Should().NotBeNullOrWhiteSpace();
+        
     }
     [Fact(DisplayName =nameof(Error_Name_Empty))]
     public async Task Error_Name_Empty()
@@ -60,7 +64,7 @@ public class RegisterUserUseCaseTest
         var unitOfWork = UnitOfWorkBuilder.Build();
         var userWriteOnlyRepository = UserWriteOnlyRepositoryBuilder.Build();
         var readOnlyRepository = new UserReadOnlyRepositoryBuilder();
-        var passwordEncript = PasswordEncripterBuilder.Builder();
+        var passwordEncript = new PasswordEncripterBuilder().Build();
         var acessToken = JwtTokenGeneratorBuilder.Build();
        
         if(!string.IsNullOrWhiteSpace(email))

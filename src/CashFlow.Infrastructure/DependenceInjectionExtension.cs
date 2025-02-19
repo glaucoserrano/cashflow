@@ -3,9 +3,12 @@ using CashFlow.Domain.Repositories.Expenses;
 using CashFlow.Domain.Repositories.User;
 using CashFlow.Domain.Security.Cryptography;
 using CashFlow.Domain.Security.Token;
+using CashFlow.Domain.Services.LoggedUser;
 using CashFlow.Infrastructure.DataAcess;
 using CashFlow.Infrastructure.DataAcess.Repositories;
+using CashFlow.Infrastructure.Extensions;
 using CashFlow.Infrastructure.Security.Tokens;
+using CashFlow.Infrastructure.Services.LoggedUser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,8 +20,10 @@ public static class DependenceInjectionExtension
     {
         AddRepositories(services);
         AddCryptography(services);
-        AddDBContext(services,configuration);
         AddToken(services, configuration);
+
+        if (!configuration.IsTestEnviroment())
+            AddDBContext(services, configuration);
     }
     private static void AddRepositories(IServiceCollection services)
     {
@@ -27,12 +32,14 @@ public static class DependenceInjectionExtension
         services.AddScoped<IExpensesUpdateOnlyRepository, ExpensesRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+        services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<ILoggedUser, LoggedUser>();
     }
     private static void AddDBContext(IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("mysqlConnection");
-        var serverVersion = new MySqlServerVersion(new Version(5, 5, 62));
+        var serverVersion = ServerVersion.AutoDetect(connectionString);
 
         
         services.AddDbContext<CashFlowDbContext>(config => config.UseMySql(connectionString, serverVersion));
