@@ -3,7 +3,6 @@ using CashFlow.Communication.Enums;
 using CashFlow.Exception;
 using CoommonTestsUtilities.Requests;
 using FluentAssertions;
-using Xunit;
 
 namespace Validators.Tests.Expenses.Register;
 public class RegisterExpenseValidatorTests
@@ -77,5 +76,19 @@ public class RegisterExpenseValidatorTests
 
         result.IsValid.Should().BeFalse();
         result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceErrorMessages.AMOUNT_MUST_BE_GREATER_THAN_ZERO));
+    }
+    
+    [Fact(DisplayName = nameof(Error_Tag_Invalid))]
+    public void Error_Tag_Invalid()
+    {
+        var validator = new RegisterExpenseValidator();
+        var request = RegisterExpenseValidatorTestsBuilder.Build();
+
+        request.Tags.Add((Tag)1000);
+
+        var result = validator.Validate(request);
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceErrorMessages.TAG_TYPE_NOT_SUPPORTED));
     }
 }

@@ -23,11 +23,15 @@ internal class ExpensesRepository : IExpensesReadOnlyRepository,IExpensesWriteOn
 
     async Task<Expense?> IExpensesReadOnlyRepository.GetById(User user ,long id)
     {
-        return await _dbcontext.expenses.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id && e.UserId == user.Id);
+        return await _dbcontext.expenses
+            .Include(expense => expense.Tags)
+            .AsNoTracking().FirstOrDefaultAsync(e => e.Id == id && e.UserId == user.Id);
     }
     async Task<Expense?> IExpensesUpdateOnlyRepository.GetById(User user ,long id)
     {
-        return await _dbcontext.expenses.FirstOrDefaultAsync(e => e.Id == id && e.UserId == user.Id);
+        return await _dbcontext.expenses
+            .Include(expense => expense.Tags)
+            .FirstOrDefaultAsync(e => e.Id == id && e.UserId == user.Id);
     }
     public async Task Delete(long id)
     {

@@ -28,6 +28,7 @@ public class GetByIdExpenseUseCaseTest
         result.Description.Should().Be(expense.Description); 
         result.Amount.Should().Be(expense.Amount); 
         result.PaymentType.Should().Be((PaymentType)expense.PaymentType);
+        result.Tags.Should().NotBeEmpty().And.BeEquivalentTo(expense.Tags.Select(tag => tag.Value));
 
     }
     [Fact(DisplayName = nameof(Error_Expense_Not_Found))]
